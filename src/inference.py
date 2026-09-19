@@ -13,7 +13,7 @@ def generate(model, tokenizer, prompt, max_new_tokens=128, temperature=0.7):
             logits = logits[:, -1, :] / temperature
             probs = torch.softmax(logits, dim=-1)
             next_id = torch.multinomial(probs, num_samples=1)
-            if next_id.item() == tokenizer.eos_id():
+            if next_id.item() == tokenizer.eos_id:
                 break
             tokens = torch.cat([tokens, next_id], dim=-1)
     out_ids = tokens[0].tolist()
@@ -25,7 +25,7 @@ def main():
     print("正在加载模型...")
     model = load_model("config/model_config.json", "weights/baizhu-small-q4.bin")
     model = model.to(device)
-    tokenizer = BaizhuTokenizer("weights/tokenizer.model")
+    tokenizer = BaizhuTokenizer()
     print("加载完成！输入 quit 退出")
     while True:
         user_input = input("\n你：")
